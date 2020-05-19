@@ -14,6 +14,7 @@ StudentCollection& StudentCollection::operator=(const StudentCollection& other) 
 	}
 
 	copyData(other);
+	return *this;
 }
 
 StudentCollection::~StudentCollection() {
@@ -28,8 +29,22 @@ void StudentCollection::append(const Student& newStudent) {
 	data[size++] = newStudent;
 }
 
+int StudentCollection::getSize() const {
+	return size;
+}
+
 Student& StudentCollection::operator[](int index) {
 	return data[index];
+}
+
+void StudentCollection::read(std::istream& in) {
+	int studentCount = 0;
+	in >> studentCount;
+	reserve(studentCount * 2);
+	size = studentCount;
+	for (int i = 0; i < size; ++i) {
+		in >> data[i];
+	}
 }
 
 void StudentCollection::print(std::ostream& out) const {
@@ -65,6 +80,23 @@ void StudentCollection::expand() {
 	}
 	delete[] data;
 	data = newData;
+}
+
+void StudentCollection::reserve(int newCapacity) {
+	if (newCapacity < capacity) {
+		return;
+	}
+
+	capacity = newCapacity;
+	Student* newData = new Student[capacity];
+	for (int i = 0; i < size; ++i) {
+		newData[i] = data[i];
+	}
+}
+
+std::istream& operator>>(std::istream& in, StudentCollection& studentCollection) {
+	studentCollection.read(in);
+	return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const StudentCollection& studentCollection) {

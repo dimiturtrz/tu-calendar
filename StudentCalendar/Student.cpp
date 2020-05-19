@@ -16,6 +16,7 @@ Student& Student::operator=(const Student& other) {
 	}
 
 	copyData(other);
+	return *this;
 }
 
 Student::~Student() {
@@ -60,6 +61,13 @@ int Student::studentAge(const Date& referenceDate) {
 	return (referenceDate - birthdate).getYear();
 }
 
+void Student::read(std::istream& in) {
+	char nameBuffer[100];
+	in >> nameBuffer;
+	setName(nameBuffer);
+	in >> fn >> birthdate >> averageGrade;
+}
+
 void Student::print(std::ostream& out) const {
 	out << name << " " << fn << " " << birthdate << " " << averageGrade;
 }
@@ -74,6 +82,11 @@ void Student::copyData(const Student& other) {
 void Student::clearData() {
 	delete[] name;
 	name = nullptr;
+}
+
+std::istream& operator>>(std::istream& in, Student& student) {
+	student.read(in);
+	return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const Student& student) {

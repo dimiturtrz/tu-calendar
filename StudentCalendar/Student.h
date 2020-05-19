@@ -20,6 +20,7 @@ public:
 
 	int studentAge(const Date& referenceDate);
 
+	void read(std::istream& in);
 	void print(std::ostream& out) const;
 
 private:
@@ -32,6 +33,7 @@ private:
 	void clearData();
 };
 
+std::istream& operator>>(std::istream& in, Student& student);
 std::ostream& operator<<(std::ostream& out, const Student& student);
 
 

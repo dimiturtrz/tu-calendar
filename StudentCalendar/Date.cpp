@@ -26,6 +26,16 @@ void Date::setDay(int day) {
 	this->day = day;
 }
 
+void Date::read(std::istream& in) {
+	in >> day;
+	in.ignore();
+	int monthValue;
+	in >> monthValue;
+	month = Month(monthValue);
+	in.ignore();
+	in >> year;
+}
+
 void Date::print(std::ostream& out) const {
 	out << day<< "/"<< month<< "/"<< year;
 }
@@ -46,6 +56,11 @@ Date Date::operator-(const Date& other) const {
 	}
 
 	return Date(year, Month(month), day);
+}
+
+std::istream& operator>>(std::istream& in, Date& date) {
+	date.read(in);
+	return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const Date& date) {

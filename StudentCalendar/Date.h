@@ -19,6 +19,7 @@ public:
 	void setMonth(Month month);
 	void setDay(int day);
 
+	void read(std::istream& in);
 	void print(std::ostream& out) const;
 
 	Date operator-(const Date& other) const;
@@ -29,4 +30,5 @@ private:
 	int day;
 };
 
+std::istream& operator>>(std::istream& in, Date& date);
 std::ostream& operator<<(std::ostream& out, const Date& date);
