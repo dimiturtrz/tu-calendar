@@ -32,6 +32,16 @@ Student& StudentCollection::operator[](int index) {
 	return data[index];
 }
 
+void StudentCollection::print(std::ostream& out) const {
+	Date today(2020, Date::Month::March, 19);
+	for (int i = 0; i < size; ++i) {
+		int studentAge = data[i].studentAge(today);
+		if (studentAge >= 18 && studentAge <= 26) {
+			out << data[i]<< std::endl;
+		}
+	}
+}
+
 void StudentCollection::copyData(const StudentCollection& other) {
 	clearData();
 
@@ -55,4 +65,9 @@ void StudentCollection::expand() {
 	}
 	delete[] data;
 	data = newData;
+}
+
+std::ostream& operator<<(std::ostream& out, const StudentCollection& studentCollection) {
+	studentCollection.print(out);
+	return out;
 }

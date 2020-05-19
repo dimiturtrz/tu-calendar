@@ -13,6 +13,8 @@ public:
 
 	Student& operator[](int index);
 
+	void print(std::ostream& out) const;
+
 private:
 	Student* data;
 	int size;
@@ -23,4 +25,6 @@ private:
 
 	void expand();
 };
+
+std::ostream& operator<<(std::ostream& out, const StudentCollection& studentCollection);
 
